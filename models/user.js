@@ -1,15 +1,16 @@
-import { DataTypes } from "sequelize";
-import { sequelize } from "../config/connection.js"
+import { DataTypes } from 'sequelize';
+import { sequelize } from "../config/connection.js"; // Make sure this path is correct
 
-const user = sequelize.define('User', {
+const User = sequelize.define('User', {
     username: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true, // Optional: Prevent duplicate usernames
     },
     password: {
         type: DataTypes.STRING,
-        allowNull: false
-    }
+        allowNull: false,
+    },
 });
 
-export default user;
+export default User;

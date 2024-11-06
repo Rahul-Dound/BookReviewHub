@@ -1,18 +1,32 @@
-import { DataTypes } from "sequelize";
-import { sequelize } from "../config/connection.js"
+// models/review.js
+import { DataTypes } from 'sequelize';
+import { sequelize } from '../config/connection.js';  // Import your sequelize instance
 
-// models
-import user from "./user.js"
-import book from "./book.js"
-
-const review = sequelize.define('Review', {
-    review_text: {
-        type: DataTypes.STRING,
+const Review = sequelize.define('Review', {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    ISBN: {
+        type: DataTypes.INTEGER,
+        allowNull: false // Ensure this is required in the model too
+    },
+    userId: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    reviewText: {
+        type: DataTypes.TEXT,
+        allowNull: false
+    },
+    rating: {
+        type: DataTypes.INTEGER,
         allowNull: false
     }
+}, {
+    tableName: 'Reviews', // Ensure the table name matches your actual table
+    timestamps: false // Add this if you don't have timestamps in the table
 });
 
-user.belongsToMany(book, { through: review });
-book.belongsToMany(user, { through: review });
-
-export default review;
+export default Review;
